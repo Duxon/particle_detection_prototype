@@ -40,13 +40,13 @@ ds = ds.shuffle(1000).batch(1)
 #%% create model
 
 model = keras.Sequential([
-    keras.layers.Conv2D(32, 4, strides=2, padding='same',
+    keras.layers.Conv2D(32, 3, strides=2, padding='same',
                   activation='relu', input_shape=(88, 88, 1)),
-    keras.layers.Conv2D(64, 4, strides=2, padding='same', activation='relu'),
-    keras.layers.Conv2D(128, 4, strides=2, padding='same', activation='relu'),
-    # keras.layers.Conv2D(256, 3, padding='same', activation='relu'),
+    keras.layers.Conv2D(64, 3, strides=2, padding='same', activation='relu'),
+    keras.layers.Conv2D(128, 3, strides=2, padding='same', activation='relu'),
+    keras.layers.Conv2D(256, 3, padding='same', activation='relu'),
     keras.layers.Flatten(),
-    # keras.layers.Dense(100, activation='relu'),
+    keras.layers.Dense(100, activation='relu'),
     keras.layers.Dense(1, activation='relu')
 ])
 
@@ -61,7 +61,7 @@ model.compile(loss=loss, optimizer=optimizer)
 
 # %% Train model
 
-history = model.fit(images, labels, epochs=10,
+history = model.fit(images, labels, epochs=100,
                     validation_data=(images, labels))
 
 
