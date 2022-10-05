@@ -37,6 +37,11 @@ ds = tf.data.Dataset.from_tensor_slices((images, labels))  # dataset
 ds = ds.shuffle(1000).batch(1)
 
 
+images_val = data.f.features_val/65535.0
+images_val = np.expand_dims(images_val, -1)
+labels_val = normalize_labels(data.f.labels_val)
+
+
 #%% create model
 
 model = keras.Sequential([
@@ -61,18 +66,20 @@ model.compile(loss=loss, optimizer=optimizer)
 
 # %% Train model
 
-history = model.fit(images, labels, epochs=100,
-                    validation_data=(images, labels))
+history = model.fit(images, labels, epochs=150,
+                    validation_data=(images_val, 
+                                     labels_val))
 
 
-# %% visualize predictions
+# %% visualize predictions on validation
 
-predictions = model(images).numpy()
+predictions = model(images_val).numpy()
 
 plt.figure()
-plt.plot(label_to_nm(labels), label='true values')
+plt.plot(label_to_nm(labels_val), label='true values')
 plt.plot(label_to_nm(predictions), label='predicted values')
 plt.legend()
+plt.title('Validation using previously unseen dataset')
 plt.ylabel('z position [nm]')
 plt.xlabel('# of prediction example')
 plt.show()
