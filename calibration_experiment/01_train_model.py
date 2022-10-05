@@ -103,13 +103,12 @@ plt.show()
 #%% plot history
 
 fig = plt.figure(figsize=(6, 5))
-plt.plot(history.history['loss'])
+plt.semilogy(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('model accuracy during training')
 plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['training', 'validation'])#, loc='upper left')
-
 
 plt.savefig('./fig/loss_history.png', dpi=300)
 plt.show()
