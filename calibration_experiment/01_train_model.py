@@ -73,15 +73,28 @@ history = model.fit(images, labels, epochs=150,
 
 # %% visualize predictions on validation
 
+from matplotlib import gridspec
+
 predictions = model(images_val).numpy()
 
-plt.figure()
-plt.plot(label_to_nm(labels_val), label='true values')
-plt.plot(label_to_nm(predictions), label='predicted values')
-plt.legend()
-plt.title('Validation using previously unseen dataset')
-plt.ylabel('z position [nm]')
-plt.xlabel('# of prediction example')
+fig = plt.figure(figsize=(6, 5))
+gs = gridspec.GridSpec(2, 1, height_ratios=[3, 1])
+ax0 = plt.subplot(gs[0])
+ax1 = plt.subplot(gs[1])
+ax0.plot(label_to_nm(labels_val), label='true values')
+ax0.plot(label_to_nm(predictions), label='predicted values')
+
+ax0.set_ylabel('z position [nm]')
+
+
+residuals = label_to_nm(labels_val) - label_to_nm(predictions).squeeze()
+ax1.plot(residuals)
+ax1.set_ylabel('residuals')
+
+
+ax0.set_title('Validation using previously unseen dataset')
+
+ax1.set_xlabel('# of prediction example')
 plt.show()
 
 
