@@ -90,7 +90,7 @@ ax0.legend()
 
 residuals = - label_to_nm(labels_val) + label_to_nm(predictions).squeeze()
 ax1.plot(residuals, 'C3', marker='x')
-ax1.set_ylabel('residual [nm]')
+ax1.set_ylabel('residuals [nm]')
 ax1.set_xlabel('# of prediction example')
 
 ax0.grid()
