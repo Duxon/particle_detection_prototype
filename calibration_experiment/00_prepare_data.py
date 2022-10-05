@@ -64,7 +64,6 @@ w = 88   # window size
 viz_particle(data, x, y, w)
 cropped_data = np.append(cropped_data, crop_particle(data, x, y, w),
                          axis=0)
-z_vec = np.append(z_vec, z_vec)
 
 #%% Select particle, 1x3
 
@@ -75,7 +74,6 @@ w = 88   # window size
 viz_particle(data, x, y, w)
 cropped_data = np.append(cropped_data, crop_particle(data, x, y, w),
                          axis=0)
-z_vec = np.append(z_vec, z_vec)
 
 #%% Select particle, 1x2
 
@@ -86,7 +84,6 @@ w = 88   # window size
 viz_particle(data, x, y, w)
 cropped_data = np.append(cropped_data, crop_particle(data, x, y, w),
                          axis=0)
-z_vec = np.append(z_vec, z_vec)
 
 #%% Select particle, 3x4
 
@@ -97,7 +94,6 @@ w = 88   # window size
 viz_particle(data, x, y, w)
 cropped_data = np.append(cropped_data, crop_particle(data, x, y, w),
                          axis=0)
-z_vec = np.append(z_vec, z_vec)
 
 #%% Select particle, 2x3 (VALIDATION DATA)
 
@@ -107,15 +103,14 @@ w = 88   # window size
 
 viz_particle(data, x, y, w)
 cropped_data_validation = crop_particle(data, x, y, w)
-z_vec_val = z_vec[0:122]
 
 #%% Save data
 
 np.savez_compressed('./data/processed.npz', 
                     features=cropped_data,
-                    labels=z_vec,
+                    labels=np.tile(z_vec, cropped_data.shape[0]//112),
                     features_val=cropped_data_validation,
-                    labels_val=z_vec_val)
+                    labels_val=z_vec)
 
 
 
