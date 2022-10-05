@@ -52,7 +52,8 @@ model = keras.Sequential([
     keras.layers.Conv2D(256, 3, padding='same', activation='relu'),
     keras.layers.Flatten(),
     keras.layers.Dense(100, activation='relu'),
-    keras.layers.Dense(1, activation='relu')
+    keras.layers.Dense(100, activation='relu'),
+    keras.layers.Dense(1, activation='sigmoid')
 ])
 
 
@@ -66,7 +67,7 @@ model.compile(loss=loss, optimizer=optimizer)
 
 # %% Train model
 
-history = model.fit(images, labels, epochs=150,
+history = model.fit(images, labels, epochs=100,
                     validation_data=(images_val, 
                                      labels_val))
 
@@ -83,26 +84,35 @@ ax0 = plt.subplot(gs[0])
 ax1 = plt.subplot(gs[1])
 ax0.plot(label_to_nm(labels_val), label='true values')
 ax0.plot(label_to_nm(predictions), label='predicted values')
-
+ax0.set_title('validation using previously unseen dataset')
 ax0.set_ylabel('z position [nm]')
+ax0.legend()
 
-
-residuals = label_to_nm(labels_val) - label_to_nm(predictions).squeeze()
-ax1.plot(residuals)
-ax1.set_ylabel('residuals')
-
-
-ax0.set_title('Validation using previously unseen dataset')
-
+residuals = - label_to_nm(labels_val) + label_to_nm(predictions).squeeze()
+ax1.plot(residuals, 'C3', marker='x')
+ax1.set_ylabel('residual [nm]')
 ax1.set_xlabel('# of prediction example')
+
+ax0.grid()
+ax1.grid()
+
+plt.savefig('./fig/validation_with_residuals.png', dpi=300)
 plt.show()
 
 
+#%% plot history
+
+fig = plt.figure(figsize=(6, 5))
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model accuracy during training')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['training', 'validation'])#, loc='upper left')
 
 
-
-
-
+plt.savefig('./fig/loss_history.png', dpi=300)
+plt.show()
 
 
 
