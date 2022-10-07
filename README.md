@@ -11,6 +11,10 @@ In this repository, we are documenting the current state and software that is de
 
 > needs some adjustments!
 
+## Inference model
+
+![inference_model](https://github.com/Duxon/particle_detection_prototype/blob/main/media/inference_model.png)
+
 ## Validation experiment for PSF engineering
 
 We are using a cylindrical lens in our imaging system to introduce an astigmatic aberration to our point-spread-function (PSF) of our imaging system.
