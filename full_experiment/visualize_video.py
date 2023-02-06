@@ -29,11 +29,14 @@ import matplotlib.animation as animation
 
 
 frames = [] # for storing the generated images
-fig = plt.figure(figsize=(8.5, 5))
+fig = plt.figure(figsize=(8, 6))
 ax = plt.gca()
+plt.subplots_adjust(top = 1, bottom = 0, right = 1, left = 0,
+            hspace = 0, wspace = 0)
+plt.margins(0,0)
 
 for i in range(imgs.shape[0]):
-# for i in range(20):
+# for i in range(50):
     if i%10 == 0:
         print('{}/{}'.format(i, imgs.shape[0]))
     img = imgs[i] - background
